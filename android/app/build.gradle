@@ -118,9 +118,18 @@ dependencies {
     }
 }
 
-// ICONS
+// ICONS - Adicionando as fontes dos ícones do react-native-vector-icons
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf', 'FontAwesome.ttf', 'Ionicons.ttf', 'Feather.ttf', 'FontAwesome6.ttf', 'MaterialCommunityIcons.ttf', 'Entypo.ttf' ]
+    iconFontNames: [
+        'MaterialIcons.ttf',
+        'EvilIcons.ttf',
+        'FontAwesome.ttf',
+        'Ionicons.ttf',
+        'Feather.ttf',
+        'FontAwesome6.ttf',
+        'MaterialCommunityIcons.ttf',
+        'Entypo.ttf'
+    ]
 ]
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")

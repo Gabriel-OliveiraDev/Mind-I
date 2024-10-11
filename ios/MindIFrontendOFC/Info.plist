@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>MindIFrontendOFC</string>
+	<string>MindI</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -71,5 +71,14 @@
   <string>Zocial.ttf</string>
   <string>Fontisto.ttf</string>
 </array>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>SelectImage</string>
+
+<key>NSCameraUsageDescription</key>
+<string>CaptureImage</string>
+
+<key>NSMicrophoneUsageDescription</key>
+<string>CaptureVideo</string>
 </dict>
 </plist>
