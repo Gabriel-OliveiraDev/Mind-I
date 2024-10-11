@@ -16,7 +16,7 @@ export default function Wave({ ...props }: WaveProps) {
         style={
           {
             top: !props.inverted ? '-10%' : '0%',
-            transform: [{ rotate: !props.inverted ? '180deg' : '0deg' }]
+            transform: [{ rotate: !props.inverted ? '180deg' : '0deg' }],
           }
         }
       >
