@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import Routes from './src/routes'
+import { AppProvider } from './src/context'
 
 export default function App() {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <AppProvider>
+      <Routes />
+    </AppProvider>
   )
 }
