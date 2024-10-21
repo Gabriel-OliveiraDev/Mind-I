@@ -29,7 +29,7 @@ export default function LoginScreen() {
           onChangeText={() => { }}
         />
 
-        <Button text='Entrar' onPress={login} />
+        <Button color={Colors.Blue.Deep} text='Entrar' onPress={login} />
 
         <Text.Body style={{ marginTop: 20 }} color={Colors.Black}>Não possui uma conta ?
           <Text.Body color={Colors.Blue.Main} onPress={goToRegister}> Cadastre-se</Text.Body>
