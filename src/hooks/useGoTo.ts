@@ -25,7 +25,28 @@ export default function useGoTo() {
 
   const goToMeditation = () => {
     nav.navigate("Meditation")
+
   }
+  const goToBubble = () => {
+    nav.navigate("Bubble")
+  }
+
+  const goToMedication = () => {
+    nav.navigate("Medication")
+  }
+
+  const goToInfo = () => {
+    nav.navigate("Information")
+  }
+
+  const goToTerms = () => {
+    nav.navigate("Terms")
+  }
+
+  const goToAbout = () => {
+    nav.navigate("About")
+  }
+
 
   return {
     goToHome,
@@ -33,6 +54,11 @@ export default function useGoTo() {
     goToRegister,
     goToAccount,
     goToFocus,
-    goToMeditation
+    goToMeditation,
+    goToBubble,
+    goToMedication,
+    goToInfo,
+    goToTerms,
+    goToAbout
   }
 }

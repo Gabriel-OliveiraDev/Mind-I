@@ -6,9 +6,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { IconType } from '../../utils/types';
 
 // Definindo as bibliotecas possíveis
-type IconType = 'MaterialIcons' | 'FontAwesome' | 'Ionicons' | 'Feather' | 'MaterialCommunityIcons' | 'Entypo';
 
 interface IconProps {
   name: string;

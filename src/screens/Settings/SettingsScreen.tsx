@@ -1,12 +1,17 @@
 import React from 'react'
 import { Container, ListItem, Screen, Text, Wave } from '../../components'
-import { Colors } from '../../utils/constants/colors'
 import { useAppContext } from '../../context'
 import { Alert } from 'react-native'
+import useGoTo from '../../hooks/useGoTo'
+import useTheme from '../../hooks/useTheme'
 
 export default function SettingsScreen() {
 
-  const { logout } = useAppContext()
+  const { goToTerms, goToAbout } = useGoTo()
+
+  const { logout, changeTheme } = useAppContext()
+
+  const Theme = useTheme()
 
   const handleExit = () => {
     Alert.alert(
@@ -29,18 +34,41 @@ export default function SettingsScreen() {
   }
 
   return (
-    <Screen color={Colors.Blue.Deep}>
-      <Wave color={Colors.White} />
-      <Text.Title style={{
-        paddingHorizontal: 30,
-        paddingVertical: 8,
-        borderColor: '#fff',
-        borderBottomWidth: 1,
-        borderRadius: 60
-      }}>Ajustes</Text.Title>
-      <Container list style={{ paddingTop: 30 }}>
-        <ListItem title='Texto' />
-        <ListItem title='Sair' onPress={handleExit} />
+    <Screen>
+      <Wave />
+      <Text.Title color={Theme.textTitle} title>
+        Ajustes
+      </Text.Title>
+      <Container list style={{ paddingTop: 30, gap: 12 }}>
+
+        <ListItem
+          title='Termos e condições'
+          onPress={goToTerms}
+          icon='file-document-multiple'
+          type='MaterialCommunityIcons'
+        />
+        {/* TODO: alteração de escuro para claro */}
+        <ListItem
+          onPress={changeTheme}
+          title='Trocar de tema'
+          icon='adjust'
+          type='Entypo'
+        />
+
+        <ListItem
+          title='Idioma'
+          icon='language'
+          type='Entypo'
+        />
+
+        <ListItem
+          onPress={goToAbout}
+          title='Sobre'
+          icon='more-horizontal'
+          type='Feather'
+        />
+
+        <ListItem title='Sair' onPress={handleExit} icon='logout' type='MaterialIcons' />
 
       </Container>
     </Screen>

@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Animated } from 'react-native';
-
 import Svg, { Path } from 'react-native-svg';
+
 import { Button, Input, Screen, Text } from '../../components';
 import { Colors } from '../../utils/constants/colors';
 import { styles } from './styles';
-import SignIn from './components/SignIn';
 import { useAppContext } from '../../context';
 import useGoTo from '../../hooks/useGoTo';
 

@@ -1,23 +1,25 @@
-import { SafeAreaView, ViewProps, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import React, { PropsWithChildren } from 'react';
+import { SafeAreaView, ViewProps, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import React from 'react'
+import useTheme from '../../hooks/useTheme'
 
-interface ScreenProps extends PropsWithChildren, ViewProps {
-  color?: string;
+interface ScreenProps extends ViewProps {
+  color?: string
 }
 
-export default function Screen({ children, color = 'transparent', style, ...props }: ScreenProps) {
+export default function Screen({ children, color, style, ...props }: ScreenProps) {
+  const Theme = useTheme()
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, flexGrow: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 20}
     >
-      {/* Detecta toque fora do input e oculta o teclado */}
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={[{ flex: 1, backgroundColor: color }, style]} {...props}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} touchSoundDisabled>
+        <SafeAreaView style={[{ flex: 1, backgroundColor: color || Theme.background }, style]} {...props}>
           {children}
         </SafeAreaView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
-  );
+
+  )
 }

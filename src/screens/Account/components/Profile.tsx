@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import { ImageLibraryOptions, launchImageLibrary } from 'react-native-image-picker';
 import { Colors } from '../../../utils/constants/colors';
-import { Text } from '../../../components';
+import { Icon } from '../../../components';
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState<string | undefined>(undefined);
@@ -37,16 +37,16 @@ export default function Profile() {
           <Image source={{ uri: profileImage }} style={styles.profileImage} />
         ) : (
           <View style={styles.placeholder}>
-            <Text.Sub color={Colors.Gray}> Selecione uma foto</Text.Sub>
+            <Icon type="MaterialIcons" name="person" size={64} color={Colors.Gray} />
           </View>
         )}
       </TouchableOpacity>
 
       {/* Ícone da câmera para indicar ação */}
       <View style={styles.cameraWrapper}>
-        <View style={styles.cameraButton}>
-          <Text.Title style={styles.cameraIcon}>📷</Text.Title>
-        </View>
+        <TouchableOpacity style={styles.cameraButton} onPress={openAlbum}>
+          <Icon type="MaterialIcons" name="camera-alt" size={28} color={Colors.Gray} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -81,25 +81,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.LightGray,
   },
-  placeholderText: {
-    color: Colors.Gray,
-    fontSize: 16,
-  },
   cameraWrapper: {
     position: 'absolute',
     bottom: 10,
     right: 10,
   },
   cameraButton: {
-    backgroundColor: Colors.White,
+    backgroundColor: Colors.Blue.Min,
     width: 60,
     height: 60,
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-  },
-  cameraIcon: {
-    fontSize: 28,
   },
 });

@@ -1,8 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Colors } from '../../utils/constants/colors';
 import { Screen, Button, Input, Logo, Wave, Container, Text } from '../../components';
-import styles from './styles';
 import { useAppContext } from '../../context';
 import useGoTo from '../../hooks/useGoTo';
 
@@ -39,3 +38,16 @@ export default function LoginScreen() {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  topBackground: {
+    width: '100%',
+    height: '40%',
+    backgroundColor: Colors.Blue.Deep,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    marginTop: 10,
+  }
+})

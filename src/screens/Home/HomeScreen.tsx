@@ -1,46 +1,30 @@
 import React from 'react'
-import { View } from 'react-native'
-
-import { Container } from './components/Container'
-import { List } from './components/List'
-import { Colors } from '../../utils/constants/colors'
-import { Logo, Screen, Text } from '../../components'
-import useGoTo from '../../hooks/useGoTo'
-import styles from './styles'
+import { Container, Screen, Text } from '../../components'
+import { useGoTo } from '../../hooks'
+import Banner from './components/Banner'
+import ListButton from './components/ListButton/ListButton'
 
 export default function HomeScreen() {
-  const { goToMeditation, goToFocus } = useGoTo()
+  const { goToMeditation, goToFocus, goToBubble, goToMedication, goToInfo } = useGoTo()
   return (
-    <Screen color={Colors.White}>
+    <Screen>
 
-      <Container.Root>
+      <Banner
+        onPress={goToInfo}
+        hello='Seja bem-vindo!'
+        name='Gabriel'
+      />
 
-        <Container.Left>
-          <View style={styles.insideLeftContainer}>
-
-          </View>
-
-          <View style={styles.insideLeftContainer}>
-
-          </View>
-        </Container.Left>
-
-        <Container.Right>
-          <View style={styles.insideRightContainer}>
-            <Logo width={'80%'} height={'70%'} />
-          </View>
-        </Container.Right>
-      </Container.Root>
-
-      <Text.Title color={Colors.Blue.Deep} style={styles.functionText}>
+      <Text.Title title>
         Funções
       </Text.Title>
 
-      <List.Root>
-        <List.Button text='Foco' onPress={goToFocus} />
-        <List.Button text='Meditação' onPress={goToMeditation} />
-        <List.Button text='Bolha de Emoção' onPress={goToMeditation} />
-      </List.Root>
+      <Container list>
+        <ListButton text='Bolha de Emoção' onPress={goToBubble} />
+        <ListButton text='Meditação' onPress={goToMeditation} />
+        <ListButton text='Foco' onPress={goToFocus} />
+        <ListButton text='Medicação' onPress={goToMedication} />
+      </Container>
 
     </Screen>
   )

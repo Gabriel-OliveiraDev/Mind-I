@@ -14,4 +14,14 @@ export const Colors = {
   Red: "#F26444",
 
   Green: "#B0F2C2",
+
+  Emotion:{
+    red: "#FF2E2E",
+    blue: '#89BCE2',
+    yellow: '#FFFB97',
+    green: '#93DC76',
+    purple: '#AC76DC',
+    orange: '#FF9D5B',
+    blue2: '#528BB4'
+  }
 }

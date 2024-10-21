@@ -2,30 +2,57 @@ import React from 'react'
 import { Container, Screen, Text, Wave, ListItem } from '../../components'
 import { Colors } from '../../utils/constants/colors'
 import Profile from './components/Profile'
-import { View, StyleSheet } from 'react-native'
 import useGoTo from '../../hooks/useGoTo'
+import { StyleSheet } from "react-native";
 
 export default function AccountScreen() {
 
   const { goToHome } = useGoTo()
 
   return (
-    <Screen color={Colors.Blue.Deep}>
-      <Wave color={Colors.White} />
-      <Container>
+    <Screen>
+      <Wave />
+      <Text.Title title>Meu Perfil</Text.Title>
+      <Container style={{ gap: 12 }}>
         <Profile />
 
-        <View style={styles.profileText}>
-          <Text.Title color={Colors.Blue.Light}>Nome</Text.Title>
-          <Text.Sub color={Colors.Blue.Light}>Email</Text.Sub>
-        </View>
+        <Container>
+          <Text.Title color={Colors.Blue.Min}>
+            Nome
+          </Text.Title>
+          <Text.Sub color={Colors.Blue.Min}>
+            Email
+          </Text.Sub>
+        </Container>
 
         <Container list>
-          <ListItem title='HOME' onPress={goToHome} />
-          <ListItem title='toma' onPress={() => { }} />
-          <ListItem title='toma' onPress={() => { }} />
-          <ListItem title='toma' onPress={() => { }} />
-          <ListItem title='toma' onPress={() => { }} />
+          <ListItem
+            title='Dados Pessoais'
+            onPress={() => { }}
+            icon='person'
+            type='MaterialIcons'
+          />
+
+          <ListItem
+            title='Editar Perfil'
+            onPress={() => { }}
+            icon='edit'
+            type='MaterialIcons'
+          />
+
+          <ListItem
+            title='Atividade'
+            onPress={() => { }}
+            icon='account-reactivate'
+            type='MaterialCommunityIcons'
+          />
+
+          <ListItem
+            title='Sair'
+            onPress={() => { }}
+            icon='logout'
+            type='MaterialIcons'
+          />
         </Container>
 
       </Container>
@@ -34,11 +61,12 @@ export default function AccountScreen() {
 }
 
 const styles = StyleSheet.create({
-  profileText: {
-    marginVertical: 15,
-    width: '100%',
-    height: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center'
+  title: {
+    paddingHorizontal: 30,
+    paddingVertical: 8,
+    borderColor: '#fff',
+    borderBottomWidth: 1,
+    borderRadius: 60,
+    marginBottom: 20
   }
 })
