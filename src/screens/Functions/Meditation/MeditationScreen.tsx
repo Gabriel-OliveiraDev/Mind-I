@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native'
 import CircularProgress from './components/CircularProgress'
 import useTheme from '../../../hooks/useTheme'
 import useHeaderConfig from '../../../hooks/useHeaderConfig'
+import KeepAwake from '@sayem314/react-native-keep-awake'
 
 export default function MeditationScreen() {
   useHeaderConfig({
@@ -28,6 +29,7 @@ export default function MeditationScreen() {
   return (
     <Screen>
       <Wave />
+      <KeepAwake />
       <Container>
         {/* Progresso circular */}
         <View style={styles.circularContainer}>
