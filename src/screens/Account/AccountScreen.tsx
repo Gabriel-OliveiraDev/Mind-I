@@ -47,12 +47,6 @@ export default function AccountScreen() {
             type='MaterialCommunityIcons'
           />
 
-          <ListItem
-            title='Sair'
-            onPress={() => { }}
-            icon='logout'
-            type='MaterialIcons'
-          />
         </Container>
 
       </Container>
