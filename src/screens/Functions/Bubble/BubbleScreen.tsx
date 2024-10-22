@@ -1,31 +1,52 @@
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 import { Button, Container, Modal, Screen, Wave } from '../../../components'
-import { Colors } from '../../../utils/constants/colors'
+import { Colors, EmotionColors } from '../../../utils/constants/colors'
 import Emotion from './components/Emotion'
 import { LinearGradient } from 'react-native-linear-gradient'
 import { useTheme, useHeaderConfig } from '../../../hooks'
 
+// TODO: Fazer sistema de notificação a cada 1 hora
+// Limitar a quantidade de emoções que podem ser registradas no dia
 export default function BubbleScreen() {
   const Theme = useTheme()
-
-  useHeaderConfig({
-    onPress() { handleInfoModal() },
-    color: Theme.text
-  })
+  useHeaderConfig({ onPress() { handleInfoModal() }, color: Theme.text })
 
   const [selected, setSelected] = useState<number | null>(null)
   const [modalVisible, setModalVisible] = useState(false)
+  const [colors, setColors] = useState<string[]>(['#FFAEC6', '#30819A'])
+
+  const handleAddColor = () => {
+    if (selected !== null) {
+      const selectedColor = EmotionColors[selected - 1] // Obtém a cor correspondente
+
+      // Adiciona a nova cor ao início do array
+      let newColorsArray = [selectedColor, ...colors]
+
+      // Mantém o array com no máximo 8 posições
+      if (newColorsArray.length > 8) {
+        newColorsArray = newColorsArray.slice(0, 8)
+      }
+
+      setColors(newColorsArray)
+      console.log(newColorsArray)
+    }
+  }
 
   const handleInfoModal = () => { setModalVisible(!modalVisible) }
 
   const handleSelected = (n: number) => { setSelected(n) }
 
   return (
-
     <Screen>
       <Container color={Theme.banner}>
-        <LinearGradient colors={['#FFAEC6', '#30819A']} style={styles.bubble} />
+        <LinearGradient
+          locations={[0.1, 0.2, 0.4, 0.6, 0.8, 0.85, 0.9, 0.95]}
+          useAngle
+          angle={20}
+          colors={colors}
+          style={styles.bubble}
+        />
       </Container>
       <Wave color={Theme.banner} />
 
@@ -73,7 +94,7 @@ export default function BubbleScreen() {
           choiced={selected === 6}
         />
         <Emotion
-          color="pink"
+          color={Colors.Emotion.pink}
           title="Insegurança"
           onPress={() => handleSelected(7)}
           choiced={selected === 7}
@@ -91,13 +112,13 @@ export default function BubbleScreen() {
           text="Confirmar"
           color={Colors.Blue.Min}
           style={{ width: '90%' }}
-          onPress={() => { }}
+          onPress={handleAddColor}
         />
       </Container>
       <Modal
         modalVisible={modalVisible}
         setModalVisible={handleInfoModal}
-        text='Esta funcionalidade de bolha permite que usuários registrem e acompanhem suas emoções ao longo do tempo. Eles podem selecionar emoções, como "feliz" ou "triste", e armazená-las quantas vezes quiserem em um dia, presenta uma visualização gráfica para ajudar a identificar padrões emocionais e tendências.'
+        text='Esta funcionalidade de bolha permite que usuários registrem e acompanhem suas emoções ao longo do tempo. Eles podem selecionar emoções, como "feliz" ou "triste", e armazená-las quantas vezes quiserem em um dia, apresentando uma visualização gráfica para ajudar a identificar padrões emocionais e tendências.'
         title='Bolha de emoções'
       />
     </Screen>
