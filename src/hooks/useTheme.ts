@@ -1,4 +1,3 @@
-import { Theme } from "../utils/types";
 import { Themes } from '../utils/constants'
 import { useAppContext } from "../context";
 

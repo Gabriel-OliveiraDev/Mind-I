@@ -1,16 +1,17 @@
-import { View, TouchableOpacity, Modal as RNModal, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
-import { Colors } from '../../utils/constants/colors'
-import { Text } from '../../components'
+import { View, TouchableOpacity, Modal as RNModal, StyleSheet } from 'react-native';
+import React from 'react';
+import { Colors } from '../../utils/constants/colors';
+import { Text } from '../../components';
 
 interface ModalProps {
-  modalVisible: boolean
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>
-  title: string
-  text: string
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  title: string;
+  text: string;
+  onConfirm?: () => void;
 }
 
-export default function Modal({ modalVisible, setModalVisible, title, text }: ModalProps) {
+export default function Modal({ modalVisible, setModalVisible, title, text, onConfirm }: ModalProps) {
   return (
     <RNModal
       transparent={true}
@@ -21,7 +22,6 @@ export default function Modal({ modalVisible, setModalVisible, title, text }: Mo
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-
           <Text.Sub color={Colors.Black} style={{ marginBottom: 10 }}>
             {title}
           </Text.Sub>
@@ -30,8 +30,21 @@ export default function Modal({ modalVisible, setModalVisible, title, text }: Mo
             {text}
           </Text.Body>
 
+          {onConfirm && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                onConfirm();
+                setModalVisible(false);
+              }}
+              activeOpacity={0.8}
+            >
+              <Text.Body >Confirmar</Text.Body>
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity
-            style={styles.closeButton}
+            style={styles.button}
             onPress={() => setModalVisible(false)}
             activeOpacity={0.8}
           >
@@ -40,7 +53,7 @@ export default function Modal({ modalVisible, setModalVisible, title, text }: Mo
         </View>
       </View>
     </RNModal>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -57,25 +70,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
   },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
   modalText: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'justify',
-
   },
-  closeButton: {
-    backgroundColor: Colors.Blue.Main,
+  button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-  },
-  closeButtonText: {
-    color: Colors.White,
-    fontWeight: 'bold',
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: Colors.Blue.Main,
   },
 });

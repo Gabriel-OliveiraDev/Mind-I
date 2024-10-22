@@ -1,3 +1,3 @@
-export { Colors } from './colors'
+export { Colors, EmotionColors } from './colors'
 export { Themes } from './themes'
 export { NotificationId } from './notificationId'
