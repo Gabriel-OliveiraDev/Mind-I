@@ -17,7 +17,7 @@ interface notificationProps {
   repeatFrequency?: RepeatFrequency
 }
 
-export default function NotificationService() {
+export default function useNotification() {
 
   async function getPermission(status: React.Dispatch<React.SetStateAction<boolean>>) {
     const settings = notifee.requestPermission()

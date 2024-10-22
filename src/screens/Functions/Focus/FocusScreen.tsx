@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Button, Container, Input, Modal, Screen, Text, Wave } from '../../../components'
 import { Colors, NotificationId } from '../../../utils/constants'
-import { useHeaderConfig, useTheme } from '../../../hooks'
-import { NotificationService } from '../../../services'
+import { useHeaderConfig, useTheme, useNotification } from '../../../hooks'
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native'
 
 export default function FocusScreen() {
   useHeaderConfig({ onPress() { setModalVisible(!modalVisible) } })
   const Theme = useTheme()
-  const { scheduleNotification } = NotificationService()
+  const { scheduleNotification } = useNotification()
 
   const [modalVisible, setModalVisible] = useState(false)
   const [minutes, setMinutes] = useState(0)

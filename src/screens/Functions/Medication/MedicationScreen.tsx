@@ -3,8 +3,7 @@ import { Button, Container, Input, Modal, Screen, Text, Wave } from '../../../co
 import { Colors } from '../../../utils/constants/colors'
 import Calendar from './components/Calendar'
 import Slider from '@react-native-community/slider'
-import { useTheme, useHeaderConfig } from '../../../hooks'
-import { NotificationService } from '../../../services'
+import { useTheme, useHeaderConfig, useNotification } from '../../../hooks'
 import notifee, { RepeatFrequency, AndroidImportance, EventType } from '@notifee/react-native'
 import { Alert, FlatList, Pressable, View } from 'react-native'
 import { useAppContext } from '../../../context'
@@ -12,7 +11,7 @@ import { NotificationId } from '../../../utils/constants'
 
 export default function MedicationScreen() {
   const { addNotification, removeNotification, userNotifications } = useAppContext()
-  const { scheduleNotification } = NotificationService()
+  const { scheduleNotification } = useNotification()
   useHeaderConfig({ onPress() { handleInfoModal() } })
   const Theme = useTheme()
 
