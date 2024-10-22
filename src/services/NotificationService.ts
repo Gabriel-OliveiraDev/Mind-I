@@ -19,19 +19,6 @@ interface notificationProps {
 
 export default function NotificationService() {
 
-  // async function foregroundEvent(DISMISSED: () => void, PRESS: () => void) {
-  //   notifee.onForegroundEvent(({ type }) => {
-  //     switch (type) {
-  //       case EventType.DISMISSED:
-  //         DISMISSED()
-  //         break
-  //       case EventType.PRESS:
-  //         PRESS()
-  //         break
-  //     }
-  //   })
-  // }
-
   async function getPermission(status: React.Dispatch<React.SetStateAction<boolean>>) {
     const settings = notifee.requestPermission()
     if ((await settings).authorizationStatus >= AuthorizationStatus.AUTHORIZED) {
@@ -40,29 +27,40 @@ export default function NotificationService() {
     return status(false)
   }
 
+  async function scheduleNotification({
+    channelData,
+    date,
+    body,
+    title,
+    repeatFrequency,
+    id,
+    importance
+  }: notificationProps) {
 
-  async function scheduleNotification({ ...data }: notificationProps) {
-    if (data.date === undefined) return
-    const channelId = await notifee.createChannel(data.channelData)
+    if (date === undefined) return
+    const channelId = await notifee.createChannel(channelData)
 
     const trigger: TimestampTrigger = {
       type: TriggerType.TIMESTAMP,
-      timestamp: data.date?.getTime(),
-      repeatFrequency: data.repeatFrequency || RepeatFrequency.NONE,
+      timestamp: date?.getTime(),
+      repeatFrequency: repeatFrequency || RepeatFrequency.NONE,
     }
 
     await notifee.createTriggerNotification({
-      title: data.title,
-      body: data.body,
+      title: title,
+      body: body,
       android: {
         channelId,
-        importance: data.importance || AndroidImportance.HIGH,
+        importance: importance || AndroidImportance.HIGH,
+        pressAction: {
+          id: id || 'default',
+          launchActivity: 'default'
+        }
       }
     }, trigger)
   }
 
   return {
-    // foregroundEvent,
     getPermission,
     scheduleNotification
   }
