@@ -1,4 +1,7 @@
+export { default as useAuth } from './useAuth'
 export { default as useGoTo } from './useGoTo'
 export { default as useHeaderConfig } from './useHeaderConfig'
-export { default as useTheme } from './useTheme'
+export { default as useLanguage } from './useLanguage'
 export { default as useNotification } from './useNotification'
+export { default as useStorage } from './useStorage'
+export { default as useTheme } from './useTheme'

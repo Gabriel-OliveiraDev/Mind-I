@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode, useState } from "react"
-import { Theme } from "../utils/types"
+import { Theme, User } from "../utils/types"
+import { useAuth } from "../hooks"
 
 type UserNotification = {
   id: string,
@@ -10,10 +11,12 @@ type UserNotification = {
 
 // Definindo o tipo do contexto
 interface AppContextProps {
+  login: (user: User) => void
+  logout: () => void
+  user: User | null
+  setUser: (user: User | null) => void // Nova função para definir o usuário
   isLogged: boolean
   theme: Theme
-  login: () => void
-  logout: () => void
   changeTheme: () => void
   userNotifications: UserNotification[]
   addNotification: (notification: UserNotification) => void
@@ -21,21 +24,38 @@ interface AppContextProps {
 }
 
 // Criando contexto
-const appContext = createContext<AppContextProps | undefined>(undefined)
-
+const AppContext = createContext<AppContextProps | undefined>(undefined)
 
 // Hook para acessar contexto
 export function useAppContext() {
-  const context = useContext(appContext)
-  if (!context) throw new Error('para utilizar useAppContext o mesmo deve estar dentro de AppProvider')
+  const context = useContext(AppContext)
+  if (!context) throw new Error('Para utilizar useAppContext o mesmo deve estar dentro de AppProvider')
   return context
 }
 
-
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [isLogged, setisLogged] = useState(false)
+  const { signOut } = useAuth()
+  const [isLogged, setIsLogged] = useState(false)
   const [theme, setTheme] = useState<Theme>('light')
   const [notifications, setNotifications] = useState<UserNotification[]>([])
+  const [userData, setUserData] = useState<User | null>(null)
+
+
+  function login(user: User) {
+    setUserData(user)
+    setIsLogged(true)
+  }
+
+  function logout() {
+    setUserData(null)
+    setIsLogged(false)
+    signOut()
+  }
+
+  function setUser(user: User | null) {
+    setUserData(user)
+    setIsLogged(user !== null)
+  }
 
   function addNotification(notification: UserNotification) {
     setNotifications((prevNotifications) => [...prevNotifications, notification])
@@ -48,8 +68,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const value: AppContextProps = {
     isLogged,
     theme,
-    login: () => setisLogged(true),
-    logout: () => setisLogged(false),
+    user: userData || null,
+    setUser,
+    login: (userData: User) => login(userData),
+    logout,
     changeTheme: () => setTheme(theme === 'light' ? 'dark' : 'light'),
     userNotifications: notifications,
     addNotification,
@@ -57,8 +79,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <appContext.Provider value={value}>
+    <AppContext.Provider value={value}>
       {children}
-    </appContext.Provider>
+    </AppContext.Provider>
   )
 }

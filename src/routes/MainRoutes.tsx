@@ -1,12 +1,12 @@
 import React from "react";
 import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import SettingsRoutes from "./SettingsRoutes";
-
-import { AccountScreen } from "../screens";
 import { Colors } from "../utils/constants";
 import { Icon } from "../components";
+
 import HomeRoutes from "./HomeRoutes";
+import SettingsRoutes from "./SettingsRoutes";
+import AccountRoutes from "./AccountRoutes";
 
 const Tab = createBottomTabNavigator()
 
@@ -25,8 +25,8 @@ export default function MainRoutes() {
         />
 
         <Tab.Screen
-          name="Account"
-          component={AccountScreen}
+          name="AccountStack"
+          component={AccountRoutes}
           options={{ tabBarIcon: ({ color }) => <Icon type="MaterialIcons" size={32} name="person" color={color} /> }}
         />
 

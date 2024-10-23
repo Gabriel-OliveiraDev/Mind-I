@@ -14,7 +14,7 @@ export default function BubbleScreen() {
 
   const [selected, setSelected] = useState<number | null>(null)
   const [modalVisible, setModalVisible] = useState(false)
-  const [colors, setColors] = useState<string[]>(['#FFAEC6', '#30819A'])
+  const [colors, setColors] = useState<string[]>(['#FFAEC6', '#FFAEC6', '#FFAEC6', '#FFAEC6', '#30819A', '#30819A', '#30819A', '#30819A'])
 
   const handleAddColor = () => {
     if (selected !== null) {
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 300,
     borderRadius: 150,
-    opacity: 0.8
+    opacity: 0.8,
+    elevation: 8
   }
 })

@@ -4,10 +4,11 @@ import { Colors } from '../../utils/constants/colors'
 import Profile from './components/Profile'
 import useGoTo from '../../hooks/useGoTo'
 import { StyleSheet } from "react-native";
+import { useAppContext } from '../../context'
 
 export default function AccountScreen() {
-
-  const { goToHome } = useGoTo()
+  const { user } = useAppContext()
+  const { goToUserData, goToEditAccount } = useGoTo()
 
   return (
     <Screen>
@@ -18,24 +19,24 @@ export default function AccountScreen() {
 
         <Container>
           <Text.Title color={Colors.Blue.Min}>
-            Nome
+            {user?.name || 'name'}
           </Text.Title>
           <Text.Sub color={Colors.Blue.Min}>
-            Email
+            {user?.email}
           </Text.Sub>
         </Container>
 
         <Container list>
           <ListItem
             title='Dados Pessoais'
-            onPress={() => { }}
+            onPress={goToUserData}
             icon='person'
             type='MaterialIcons'
           />
 
           <ListItem
             title='Editar Perfil'
-            onPress={() => { }}
+            onPress={goToEditAccount}
             icon='edit'
             type='MaterialIcons'
           />

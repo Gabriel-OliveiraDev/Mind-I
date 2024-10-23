@@ -16,7 +16,7 @@ export default function useGoTo() {
   }
 
   const goToAccount = () => {
-    nav.navigate('Account')
+    nav.navigate('AccountStack')
   }
 
   const goToFocus = () => {
@@ -47,6 +47,14 @@ export default function useGoTo() {
     nav.navigate("About")
   }
 
+  const goToUserData = () => {
+    nav.navigate("UserData")
+  }
+
+  const goToEditAccount = () => {
+    nav.navigate("EditAccount")
+  }
+
 
   return {
     goToHome,
@@ -59,6 +67,8 @@ export default function useGoTo() {
     goToMedication,
     goToInfo,
     goToTerms,
-    goToAbout
+    goToAbout,
+    goToUserData,
+    goToEditAccount
   }
 }

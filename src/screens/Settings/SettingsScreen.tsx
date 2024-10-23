@@ -9,9 +9,16 @@ export default function SettingsScreen() {
 
   const { goToTerms, goToAbout } = useGoTo()
 
-  const { logout, changeTheme } = useAppContext()
+  const { logout, changeTheme, user, setUser } = useAppContext()
 
   const Theme = useTheme()
+
+  const handleTheme = () => {
+    changeTheme()
+    if (user) {
+      user?.theme! === 'light' ? user.theme = 'dark' : user.theme = 'light'
+    }
+  }
 
   const handleExit = () => {
     Alert.alert(
@@ -33,6 +40,15 @@ export default function SettingsScreen() {
     )
   }
 
+  const handleLanguage = () => {
+    if (user) {
+      (user?.language as string) === 'en-US' ?
+        setUser({ ...user, language: 'pt-BR' })
+        :
+        setUser({ ...user, language: 'en-US' })
+    }
+  }
+
   return (
     <Screen>
       <Wave />
@@ -47,9 +63,9 @@ export default function SettingsScreen() {
           icon='file-document-multiple'
           type='MaterialCommunityIcons'
         />
-        {/* TODO: alteração de escuro para claro */}
+
         <ListItem
-          onPress={changeTheme}
+          onPress={handleTheme}
           title='Trocar de tema'
           icon='adjust'
           type='Entypo'
@@ -59,6 +75,7 @@ export default function SettingsScreen() {
           title='Idioma'
           icon='language'
           type='Entypo'
+          onPress={handleLanguage}
         />
 
         <ListItem

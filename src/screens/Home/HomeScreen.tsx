@@ -1,35 +1,63 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Screen, Text } from '../../components'
-import { useGoTo, useNotification } from '../../hooks'
+import { useAuth, useGoTo, useLanguage, useNotification } from '../../hooks'
 import Banner from './components/Banner'
 import ListButton from './components/ListButton/ListButton'
+import { useAppContext } from '../../context'
+import { User } from '../../utils/types'
 
 
 export default function HomeScreen() {
+  const { user, setUser } = useAppContext()
+  const { fetchUser } = useAuth()
+  const language = useLanguage(user!)
+  const Txt = language?.Home
   const { goToMeditation, goToFocus, goToBubble, goToMedication, goToInfo } = useGoTo()
   const [statusNotification, setStatusNotification] = useState(true)
   const { getPermission } = useNotification()
 
-  useEffect(() => { getPermission(setStatusNotification) }, [])
+  useEffect(() => {
+    if (!user?.uid) return
+
+    const unsubscribe = fetchUser(user.uid, (userData) => {
+      if (userData) {
+        const updatedUser: User = {
+          ...user,
+          name: userData.name,
+          theme: 'light',
+        }
+        setUser(updatedUser)
+      }
+    })
+
+    // Cancela a observação quando o componente for desmontado ou o UID mudar
+    return () => {
+      unsubscribe()
+    }
+  }, [user?.uid])
+
+  useEffect(() => {
+    getPermission(setStatusNotification)
+  }, [])
 
   return (
     <Screen>
 
       <Banner
         onPress={goToInfo}
-        hello='Seja bem-vindo!'
-        name='Gabriel'
+        hello={Txt?.welcome!}
+        name={user?.name || ''}
       />
 
       <Text.Title title>
-        Funções
+        {Txt?.function}
       </Text.Title>
 
       <Container list>
-        <ListButton text='Bolha de Emoção' onPress={goToBubble} />
-        <ListButton text='Meditação' onPress={goToMeditation} />
-        <ListButton text='Foco' onPress={goToFocus} />
-        <ListButton text='Medicação' onPress={goToMedication} />
+        <ListButton text={Txt?.emotionBubble!} onPress={goToBubble} />
+        <ListButton text={Txt?.meditation!} onPress={goToMeditation} />
+        <ListButton text={Txt?.focus!} onPress={goToFocus} />
+        <ListButton text={Txt?.medication!} onPress={goToMedication} />
       </Container>
 
     </Screen>
